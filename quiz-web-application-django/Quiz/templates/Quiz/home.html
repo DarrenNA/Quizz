@@ -1,0 +1,257 @@
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@500&display=swap');
+    /*font-family: 'Anek Tamil', sans-serif;*/
+    @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+    /*font-family: 'Grape Nuts', cursive;*/
+
+    *{
+        margin: 0;
+    }
+
+    body{
+        background-image: url("https://www.cmi-strategies.fr/wp-content/uploads/2021/04/Light-Gray-background-539x303-1-e1617354022958.png");
+        background-attachment: fixed;
+    }
+        
+
+                                        /* Pour Chrome, Edge, et Safari */
+
+    body::-webkit-scrollbar {
+        width: 16px;                                                      /* largeur scrollbar */
+    }
+          
+    body::-webkit-scrollbar-track {
+        background: #9C9C9C;                                                /* couleur fond */
+    }
+          
+    body::-webkit-scrollbar-thumb {
+        background-color: #343a40;                                                 /* couleur "curseur" */
+        border-radius: 20px;                                            /* largeur curseur */
+        border: 3px solid #9C9C9C;                                          /* ajouter un padding autour du curseur*/
+    }
+
+                                        /*Pour Firefox*/
+
+    body {
+        scrollbar-width: thin;                                                          /* "auto" ou "thin" */
+        scrollbar-color: #343a40 #9C9C9C;                                               /* scroll curseur + fond */
+    }
+
+
+    .container{
+        background-color: #9C9C9C;
+        padding: 0;
+        border-radius: 20px;
+    }
+
+    .hrDiv{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height: 5px;
+        width:60%;
+        margin-left: 20%;
+        border: 1px solid #343a40;
+        background-color: #343a40;
+    }
+
+    hr{
+        color:#343a40;
+        height: 5px;
+        background-color:#343a40;
+    }
+
+    .title{
+        height: 15%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 3%;
+        margin-top: 5%;
+        margin-bottom:1%;
+        font-family: 'Anek Tamil', sans-serif;
+    }
+
+    .timer{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top:3%;
+        margin-bottom:3%;
+    }
+
+    .form-group{
+        font-weight: 650;
+        font-size: 1.3em;
+        background-color: #C7C7C7;
+        font-family: 'Anek Tamil', sans-serif;
+        padding-left: 1%;
+        padding-top: 1%;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .ok{
+        width: 96%;
+        border: 1px solid #343a40;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        margin-left: 2%;
+        box-shadow: 7px 5px 5px black;
+    }
+
+    okdiv:first-of-type {
+        display: flex;
+        align-items: flex-start;
+      }
+
+    label {
+        margin-right: 15px;
+        line-height: 32px;
+    }
+
+    input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      
+        border-radius: 50%;
+        border: 1px solid black;
+        width: 16px;
+        height: 16px;
+      
+        border: 2px solid #999;
+        transition: 0.2s all linear;
+        margin-right: 5px;
+      
+        position: relative;
+        top: 4px;
+      }
+      
+      input:checked {
+        border: 6px solid black;
+      }
+      
+      button{
+        color: white;
+        background-color: black;
+        padding: 5px 10px;
+        border-radius: 0;
+        border: 0;
+        font-size: 14px;
+      }
+      
+      button:hover,
+      button:focus {
+        color: #999;
+      }
+      
+      button:active {
+        background-color: white;
+        color: black;
+        outline: 1px solid black;
+      }
+
+    .form-check{
+        margin-left: 1.5%;
+    }
+
+    .foot{
+        border: 1px solid black;
+        height: 8.5%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+    }
+
+    button{
+        height:100%;
+        width: 10%;
+        background-color: #343a40;
+        color: #C7C7C7;
+    }
+
+</style>
+{% extends 'Quiz/dependencies.html' %}
+
+{% block content %}
+{% load static %}
+<body>
+<div class="container ">
+    <div class="title">
+        <h1>Bienvenue sur le quiz !</h1>
+    </div>
+    <div class="hrDiv">
+        <hr>
+    </div>    
+    <span class="timer">
+        <div align="right " id="displaytimer"><b>Durée de votre session : 0 secondes</b></div>
+    </span>
+
+ <form method='post' action=''>
+        {% csrf_token %}
+        {% for q  in questions%}
+        <div class="ok">
+            <div class="form-group">
+                <label for="question"><span class="titreQuestion">{{q.question}}</span></label>
+            </div>
+            <div class="form-rep">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name=" {{q.question}}" id="gridRadios1" value="option1">
+                    <label class="form-check-label" for="gridRadios1">
+                        <p><-- {{q.op1}}</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option2">
+                    <label class="form-check-label" for="gridRadios2">
+                        <p><-- {{q.op2}}</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="option3">
+                    <label class="form-check-label" for="gridRadios1">
+                        <p><-- {{q.op3}}</p>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option4">
+                    <label class="form-check-label" for="gridRadios2">
+                        <p><-- {{q.op4}}</p>
+                    </label>
+                </div>
+                <br>
+            </div>
+        </div>  
+    {% endfor %}
+    <input id='timer' type='hidden' name="timer" value="">
+    <br>
+    <div class="foot">
+        <button type="submit" class="btn btn-primary">Résultats</button>
+    </div>
+  </form>
+    {% block script %}
+        <script>
+
+            console.log('hello world')
+            const timer=document.getElementById('displaytimer')
+            console.log(timer.textContent)
+            const inputtag = document.getElementById('timer')
+
+            t=0
+            setInterval(()=>{
+                t+=1
+                timer.innerHTML ="<b>Durée de votre session : " +t+" secondes</b>"
+                inputtag.value = t
+            },1000)
+        </script>
+    {% endblock script %}
+
+</div>
+</body>
+{% endblock %}
+ 
+
+

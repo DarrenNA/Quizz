@@ -1,0 +1,64 @@
+{% load static %}
+
+
+<style>
+  .greet{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 20px;
+  }
+  .navbar{
+    background-color: #40d983;
+  }
+</style>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav">
+        
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">Acceuil</a>
+        </li>
+        </li>
+        <li class="nav-item active">
+          
+        {% if request.user.is_staff %}
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'addQuestion' %}">Ajoutez une question</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="http://127.0.0.1:8000/addQuizz">Ajoutez un Quiz</a>
+        </li>
+        {% endif %} 
+
+
+        {% if not request.user.is_active %}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+        </li>
+
+       <li class="nav-item">
+          <a  class="nav-link" href='{% url 'register' %}'> Céer un compte</a></p>
+        </li>
+
+      </ul>
+    </div>
+    <span class="greet">Bonjour</span>
+    {% endif %}
+
+    {% if request.user.is_active %}
+    <span class="greet">Bonjour, {{request.user}}</span>
+    
+    <span ><a  class="greet" href="{% url 'logout' %}">Déconnexion</a></span>
+    {% endif %}
+  </nav>
+
+</body>
